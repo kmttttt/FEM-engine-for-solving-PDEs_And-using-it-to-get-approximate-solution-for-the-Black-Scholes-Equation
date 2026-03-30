@@ -11,7 +11,7 @@
 int main() {
     // 1. Generate the Mesh
     Mesh1D mesh(1.0, 0.0, 10); 
-    auto non_uniform_mesh = mesh.generateNonUniform(0.5, 3);
+    auto non_uniform_mesh = mesh.generateUniform();
     
     // Store the number of nodes so we can use it to size our vectors
     int num_nodes = non_uniform_mesh.size();
