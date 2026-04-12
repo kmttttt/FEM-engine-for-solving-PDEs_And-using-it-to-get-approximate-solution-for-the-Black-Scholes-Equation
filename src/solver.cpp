@@ -26,12 +26,14 @@ std::vector<std::pair<double,Eigen::VectorXd>> solverCN::Crank_Nicolson(double b
 
     std::vector<std::pair<double,Eigen::VectorXd>> outP;
     outP.push_back({time,To});
-    time = time +t_step;
+    time = t_step;
 
     Eigen::SparseLU<Eigen::SparseMatrix<double>> solver;
     solver.compute(A);
 
-    while(t>=time){
+    int n_t = std::round(t/t_step);
+    for(int i = 1; i<= n_t; i++){
+        time = i*t_step;
         F = B*To;
         F(0) = 1e15*b_val1;
         F(n) = 1e15*b_val2;
@@ -41,8 +43,8 @@ std::vector<std::pair<double,Eigen::VectorXd>> solverCN::Crank_Nicolson(double b
         To = T1;
 
         outP.push_back({time,To});
-        time += t_step;
     }
 
     return outP;
 }
+
